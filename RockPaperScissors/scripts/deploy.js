@@ -1,14 +1,20 @@
+const hre = require("hardhat");
+
 async function main() {
-    const [deployer] = await ethers.getSigners();
+    const subscriptionId = 315;
+    const keyHash = "0x6d4676b7e03852ca8ec60696d67dd4a07e309c410269083b2616f6946df62fb7"
+    const vrfCoordinator = "0xa2d23627bC0314f4Cbd08Ff54EcB89bb45685053"
+    const callbackGasLimit = 1000000;
+    const requestConfirmations = 3;
+
+    const rps = await hre.ethers.getContractFactory("RPS",[subscriptionId, keyHash, vrfCoordinator, callbackGasLimit, requestConfirmations]);
+    console.log("Deploying RPS...");
+
+    await rps.waitForDeployment();
   
-    console.log("Deploying contracts with the account:", deployer.address);
+    console.log(`Deployed to, ${rps.target}`);
   
-    console.log("Account balance:", (await deployer.getBalance()).toString());
-  
-    const Token = await ethers.getContractFactory("RPS"); //Replace with name of your smart contract
-    const token = await Token.deploy();
-  
-    console.log("Token address:", token.address);
+       
   }
   
   main()
@@ -17,3 +23,4 @@ async function main() {
       console.error(error);
       process.exit(1);
     });
+  

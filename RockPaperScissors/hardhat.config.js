@@ -40,7 +40,7 @@ module.exports = {
     }
   },
   solidity: {
-  version: "0.8.9",
+  version: "0.8.24",
   settings: {
     optimizer: {
       enabled: true
@@ -57,4 +57,3 @@ module.exports = {
     timeout: 20000
   }
 };
-

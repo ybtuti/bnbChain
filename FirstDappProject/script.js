@@ -1,4 +1,4 @@
-const contractAddress = '0x8B547874B8bC7082bD16A298616642bd91Ec1d57';
+const contractAddress = '0xD56f2Da21330975C5C5f146eEE6ba6CBFe9d93d7';
 const abi = [
     [
         {
@@ -43,7 +43,7 @@ const abi = [
     ]
 ]
 
-const provider = new ethers.providers.Web3Provider(window.ethereum, 97);
+const provider = new ethers.providers.Web3Provider(window.ethereum,);
 
 let signer;
 let contract;

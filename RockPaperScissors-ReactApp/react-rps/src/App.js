@@ -7,6 +7,7 @@ import Button from "react-bootstrap/Button";
 import ContractAbi from "./ContractAbi.json";
 import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
+import { FormControl } from "react-bootstrap";
 
 const App = () => {
     const contractAddress = "";
@@ -112,11 +113,54 @@ const App = () => {
 
     const displayCompChoice = (resultFromContract) => {
       let compChoice = "scissors";
-      if ( compChoice == 1){
+      if (contractchoice == 1){
         compChoice = "rock";
-      } else if (compChoice == 2){
+      } else if (contractchoice == 2){
         compChoice = "paper";
       }
       setComputerAction(compChoice);
     };
+    const handleChangeOnBet = (event) => {
+        setBetAmount(event.target.value);
+
+    };
+
+    return(
+        <div className="center">
+            <h1>Rock Paper scissors</h1>
+            <Button className="button-connect" variant="outline-primary" onClick={connectWalletHandler}>
+                {connButtonText}
+            </Button>{" "}
+            <div>
+                <div className="container">
+                    <Player name= "Player" action={playerAction} />
+                    <Player name= "Computer" action={computerAction} />
+                </div>
+                <div>
+                    <ActionButton action="rock" onActionSelected={onActionSelected} />
+                    <ActionButton action="paper" onActionSelected={onActionSelected} />
+                    <ActionButton action="scissors" onActionSelected={onActionSelected} />
+                </div>
+                <div className="inputs">
+                  <InputGroup className="mb-3">
+                    <InputGroup.Text id="inputGroup-sizing-default">Bet Amount</InputGroup.Text>
+                  
+
+                    <FormControl
+                    aria-label="Bet Amount"
+                    aria-describedby="inputGroup-sizing-default"
+                    onchange={handleChangeOnBet}
+                    value={betAmount}
+                    />
+                    </InputGroup>
+
+                </div>
+                <Button variant="success" className="button-play" onClick={play}>play</Button>{" "}
+                <p>{'Latest transaction hash: ${txHash}'}</p>
+            </div>
+        </div>
+
+    )
 }
+
+export default App;

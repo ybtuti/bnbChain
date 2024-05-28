@@ -43,7 +43,7 @@ Examples:
 
 - Create issues whenever possible
 - Make sure to use the correct labels
-- Mention the issue in corresponding branches like `issue-<issue-number>` (aforementioned)
+- Mention the issue in corresponding branches like `issue-<issue-number>` (a forementioned)
 
 
 ## License

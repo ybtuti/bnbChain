@@ -18,10 +18,11 @@ contract BEP20Basic is IERC20 {
     constructor(string memory _name, string memory _symbol) {
         name = _name;
         symbol = _symbol;
+        _mint(_totalSupply);
 
     }
     function totalSupply() public view override returns (uint256) {
-        return totalSupply;
+        return _totalSupply;
     }
 
     function balanceOf(address tokenOwner)public view override returns(uint256){

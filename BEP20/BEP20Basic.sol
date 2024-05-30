@@ -43,4 +43,21 @@ contract BEP20Basic is IERC20 {
     function allowances(address owner, address delegate) public view override returns (uint){
         return allowances[owner][delegate];
     }
+    function transferFrom(address owner, address buyer, uint256 numToken) public override returns(bool){
+        require(numToken <= balances[owner]);
+        require(numtoken <= allowances[owner][msg.sender]);
+
+        balances[owner] = balances[owner] - numToken;
+        allowances[owner][msg.sender] = allowances[owner][msg.sender] - numToken;
+        balances[buyer] = balances[buyer] + numToken;
+        emit Transfer(owner, buyer, numToken);
+        return true;
+
+    }
+
+    function _mint(uint amount)internal{
+        balances[msg.sender] = balances[msg.sender] + amount;
+        _totalSupply = _totalSupply = amount;
+        emit Transfer(address(0), msg.sender, amount);
+    }
 }

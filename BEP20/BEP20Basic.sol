@@ -28,7 +28,7 @@ contract BEP20Basic is IERC20 {
         return balances[tokenOwner];
     }
     function transfer(address reciever, uint256 numTokens) public override returns (bool){
-        require(numtokens <= balances[msg.sender]);
+        require(numTokens <= balances[msg.sender]);
         balances[msg.sender] = balances[msg.sender] - numTokens;
         balances[reciever] = balances[reciever] + numTokens;
         emit Transfer(msg.sender,reciever, numtokens);
@@ -40,7 +40,7 @@ contract BEP20Basic is IERC20 {
         return true;
     }
 
-    function allowances(address owner, address delegate) public view override returns (uint){
+    function allowance(address owner, address delegate) public view override returns (uint){
         return allowances[owner][delegate];
     }
     function transferFrom(address owner, address buyer, uint256 numToken) public override returns(bool){

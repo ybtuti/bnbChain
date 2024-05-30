@@ -34,4 +34,13 @@ contract BEP20Basic is IERC20 {
         emit Transfer(msg.sender,reciever, numtokens);
         return true;
     }
+    function approve(address delegate, uint256 numTokens) public override returns (bool){
+        allowances[msg.sender][delegate] = numTokens;
+        emit Approval(msg.sender, delegate, numTokens);
+        return true;
+    }
+
+    function allowances(address owner, address delegate) public view override returns (uint){
+        return allowances[owner][delegate];
+    }
 }

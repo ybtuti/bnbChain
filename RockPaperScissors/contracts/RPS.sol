@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.24;
+pragma solidity ^0.8.0;
 
 import "@binance-oracle/binance-oracle-starter/contracts/mock/VRFConsumerBase.sol";
 import "@binance-oracle/binance-oracle-starter/contracts/interfaces/VRFCoordinatorInterface.sol";
 
-contract RPS is VRFConsumerBase {
+contract RPS is VRFConsumerBase{
 
     enum StatusEnum {
         WON,

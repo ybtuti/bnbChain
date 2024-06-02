@@ -1,6 +1,6 @@
 const { expect } = require("chai");
 const keccak256 = require("keccak256");
-const { merkleTree } = require("merkletreejs");
+const { MerkleTree } = require("merkletreejs");
 
 function enclodeLeaf(address, spots) {
   //Same as 'abi.encode' in solidity
@@ -18,7 +18,7 @@ describe("Merkle Trees", function () {
       enclodeLeaf(testAddresses[1].address, 2),
       enclodeLeaf(testAddresses[2].address, 2),
       enclodeLeaf(testAddresses[3].address, 2),
-      encodeLeaf(testAddresses[5].address, 2),
+      enclodeLeaf(testAddresses[5].address, 2),
     ];
     const merkleTree = new MerkleTree(List, keccak256, {
       hashLeaves: true,
@@ -31,18 +31,19 @@ describe("Merkle Trees", function () {
     const airdrop = await ethers.getContractFactory("Airdrop");
 
     const Airdrop = await airdrop.deploy(root);
-    await Airdrop.waitForDeploymet();
+    await Airdrop.waitForDeployment();
 
     for (let i = 0; i < 6; i++) {
       const leaf = keccak256(List[i]);
       const proof = merkleTree.getHexProof(leaf);
 
       const connectedAirdrop = await Airdrop.connect(testAddresses[i]);
+      const verified = await connectedAirdrop.checkWhitelist(proof, 2); // corrected here
 
       expect(verified).to.equal(true);
     }
 
     const verifiedInvalid = await Airdrop.checkwhitelist([], 2);
-    expect(verifiedInvalid).to.equal(false);
+    expect(verifiedInvalid).to.equal(false); // corrected here
   });
 });

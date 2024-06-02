@@ -11,7 +11,7 @@ contract Airdrop {
         merkleRoot = _merkleRoot;
     }
 
-    function checkWhiteList(bytes32[] calldata proof, uint64 maxAllowanceToMint) public view returns (bool){
+    function checkWhitelist(bytes32[] calldata proof, uint64 maxAllowanceToMint) public view returns (bool){
         bytes32 leaf = keccak256(abi.encodePacked(msg.sender, maxAllowanceToMint));
         bool verified = MerkleProof.verify(proof, merkleRoot, leaf);
         return verified;

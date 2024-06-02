@@ -15,4 +15,10 @@ contract AirdropToken {
             _token.transfer(_addressArray[i], _amountArray[i]);
         }
     }
+
+    function airdropWithTransferFrom(IfakeToken _token, address[] memory _addressArray, uint256[] memory _amountArray) public{
+        for(uint8 i = 0; i < _addressArray.length; i++){
+            _token.transferFrom(msg.sender, _addressArray[i], _amountArray[i]);
+        }
+    }
 }

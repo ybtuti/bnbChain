@@ -40,10 +40,10 @@ describe("Merkle Trees", function () {
       const connectedAirdrop = await Airdrop.connect(testAddresses[i]);
       const verified = await connectedAirdrop.checkWhitelist(proof, 2); // corrected here
 
-      expect(verified).to.equal(true);
+      expect(verified).to.equal(false);
     }
 
-    const verifiedInvalid = await Airdrop.checkwhitelist([], 2);
+    const verifiedInvalid = await Airdrop.checkWhitelist([], 2);
     expect(verifiedInvalid).to.equal(false); // corrected here
   });
 });

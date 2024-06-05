@@ -5,7 +5,7 @@ pragma solidity ^0.8.0;
 import "@binance-oracle/binance-oracle-starter/contracts/mock/VRFConsumerBase.sol";
 import "@binance-oracle/binance-oracle-starter/contracts/interfaces/VRFCoordinatorInterface.sol";
 
-contract RPS is VRFConsumerBase{
+abstract contract RPS is VRFConsumerBase{
 
     enum StatusEnum {
         WON,
@@ -144,7 +144,7 @@ contract RPS is VRFConsumerBase{
            return StatusEnum.LOST;
     }
 
-    function fulfillRandomWords(uint256 requestId, uint256[] memory randomWords, uint256 challengeId) internal override {
+    function fulfillRandomWords(uint256 requestId, uint256[] memory randomWords, uint256 challengeId) internal {
         ChallengeStatus storage challenge = s_challenges[challengeId];
         require(challenge.exists, "Challenge not found");
 

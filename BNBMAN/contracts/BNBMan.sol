@@ -28,7 +28,7 @@ contract NFTHuman is ERC721Storage {
 
     }
 
-    function getToneURI(uint256 tokenId) public view returns (string memory) {
+    function getTokenURI(uint256 tokenId) public view returns (string memory) {
         bytes memory dataURI = abi.encodePacked(
             "(",
             '"name": "BNB Man Character #', tokenId.toString(),
@@ -44,6 +44,17 @@ contract NFTHuman is ERC721Storage {
         require (msg.sender == owner, "Only owner can mint");
         _tokenIds++;
         uint256 newItemId = _tokenIds;
+        tokenIdAges[newItemId] = 0;
+        _safeMint(msg.sender, newItemId);
+        _setTokenURI(newItemId, getTokenURI(newItemId));
+    }
+
+    function growUp(uint256 tokenId) public {
+        require(ownerOf(tokenId) == address(0), "Please use an existing token");
+        require(ownerOf(tokenId) == msg.sender, "You must own this toke to grow up");
+        uint256 currentAge = tokenIdAges[tokenId];
+        tokenIdAges[tokenId] = currentAge + 1;
+        _setTokenURI(tokenId, getTokenURI(tokenId));
     }
 
 

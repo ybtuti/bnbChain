@@ -36,7 +36,15 @@ contract NFTHuman is ERC721Storage {
             '"description": "collectible Characters",',
             '"image": "', generateCharacter(tokenId),
             ")"
-        )
+        );
+        return string(abi.encodePacked("data:application/json;base64,", Base64.encode(dataURI)));
     }
+
+    function mint() public {
+        require (msg.sender == owner, "Only owner can mint");
+        _tokenIds++;
+        uint256 newItemId = _tokenIds;
+    }
+
 
 }

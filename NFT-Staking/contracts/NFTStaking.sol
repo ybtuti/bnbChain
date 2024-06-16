@@ -79,6 +79,25 @@ contract NFTStaking is Ownable {
         }
         return false;
     }
-
+    function getTokenIndex(address _user, uint256 _tokenId) public view returns (uint256) {
+        Staker storage staker = stakers[_user];
+        for (uint256 i = 0; i < staker.stakedTokenIds.length; i++) {
+            if (staker.stakedTokenIds[i] == _tokenId) {
+                return i;
+            }
+        }
+        revert("Token not found");
+    }
+    function calculateRewards(address _staker) public view returns (uint256) {
+        Staker storage staker = stakers[_staker];
+        uint256 timePassed = block.timestamp - staker.lastUpdatedTime;
+        return (timePassed * rewardsPerHour* staker.stakedTokenIds.length) / 3600;
+    }
+    function updateRewards(address _staker) internal {
+        Staker storage staker = stakers[_staker];
+        uint256 rewardsEarned = calculateRewards(_staker);
+        staker.unclaimedRewards += rewardsEarned;
+        staker.lastUpdatedTime = block.timestamp;
+    }
     
 }

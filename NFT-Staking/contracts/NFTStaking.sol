@@ -64,4 +64,21 @@ contract NFTStaking is Ownable {
         staker.unclaimedRewards = 0;
         rewardsToken.transfer(msg.sender, rewards);
     }
+
+    function setRewardsPerHour(uint256 _newValue) external onlyOwner {
+        rewardsPerHour = _newValue;
+
+    }
+
+    function isStaked(address _user, uint256 _tokenId) public view returns (bool) {
+        Staker storage staker = stakers[_user];
+        for (uint256 i = 0; i < staker.stakedTokenIds.length; i++) {
+            if (staker.stakedTokenIds[i] == _tokenId) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    
 }

@@ -8,4 +8,35 @@ describe("NFTStaking", function () {
   let user2;
   let NFTCollection;
   let RewardsToken;
+
+  beforeEach(async () => {
+    [owner, user1, user2] = await ethers.getSigners();
+
+    const rewardsToken = await ethers.getContractFactory("RewardsToken");
+    RewardsToken = await rewardsToken.deploy();
+
+    const nftCollection = await ethers.getContractFactory("NFTCollection");
+    NFTCollection = await nftCollection.deploy();
+
+    NFTStaking = await ethers.getContractFactory("NFTStaking");
+    nftStaking = await ethers.deployContract(
+      "NFTStaking",
+      [NFTCollection.target, RewardsToken.target],
+      {}
+    );
+
+    await nftStaking.waitForDeployment();
+    await NFTCollection.mint(user1);
+  });
+  it("Should allow users to stake tokens", async () => {
+    const tokenIdsToStake = [1];
+    await NFTCollection.connect(user1).approve(
+      nftStaking.target,
+      tokenIdsToStake[0]
+    );
+    await nftStaking.connect(user1).stake(tokenIdsToStake);
+    const staker = await nftStaking.stakers(user1.address);
+    const result = await nftStaking.isStaked(user1, tokenIdsToStake[0]);
+    expect(result).to.equal(true);
+  });
 });

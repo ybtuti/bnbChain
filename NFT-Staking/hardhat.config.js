@@ -6,7 +6,6 @@ const SECRET_KEY = process.env.SECRET_KEY;
 
 /**@type import ('hardhat/config').HardhatUserConfig */
 module.exports = {
-  defaultNetwork: "sepolia",
   networks: {
     bnbTestnet: {
       url: "https://bsc-testnet-rpc.publicnode.com",
@@ -15,7 +14,7 @@ module.exports = {
     },
     sepolia: {
       url: "https://sepolia-rpc.publicnode.com",
-      chainId: 1337,
+      chainId: 11155111,
       accounts: [SECRET_KEY],
     },
   },

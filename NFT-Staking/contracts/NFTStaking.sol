@@ -39,18 +39,18 @@ contract NFTStaking is Ownable {
     function withdraw (uint256[] calldata _tokenIds) external {
         Staker storage staker = stakers[msg.sender];
         require(staker.stakedTokenIds.length > 0, "You don't have any staked tokens");
-        updatedRewards(msg.sender);
-
+        updateRewards(msg.sender);
+    
         for (uint256 i = 0; i < _tokenIds.length; i++) {
             uint256 tokenId = _tokenIds[i];
             require(isStaked(msg.sender, tokenId), "You can't withdraw a token that isn't staked");
-
+    
             uint256 index = getTokenIndex(msg.sender, tokenId);
             uint256 lastIndex = staker.stakedTokenIds.length - 1;
-
-            if(index = lastIndex) {
+    
+            if(index == lastIndex) {
                 staker.stakedTokenIds[index] = staker.stakedTokenIds[lastIndex];
-
+    
             }
             staker.stakedTokenIds.pop();
             nftCollection.transferFrom(address(this), msg.sender, tokenId);

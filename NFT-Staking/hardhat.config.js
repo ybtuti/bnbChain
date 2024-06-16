@@ -13,6 +13,11 @@ module.exports = {
       chainId: 97,
       accounts: [SECRET_KEY],
     },
+    sepolia: {
+      url: "https://sepolia-rpc.publicnode.com",
+      chainId: 1337,
+      accounts: [SECRET_KEY],
+    },
   },
   etherscan: {
     apiKey: ETHERSCAN_API_KEY,

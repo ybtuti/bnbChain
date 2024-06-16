@@ -39,4 +39,15 @@ describe("NFTStaking", function () {
     const result = await nftStaking.isStaked(user1, tokenIdsToStake[0]);
     expect(result).to.equal(true);
   });
+  it("Should allow users to withdraw tokens", async () => {
+    const tokenIdsToStake = [1];
+    await NFTCollection.connect(user1).approve(
+      nftStaking.target,
+      tokenIdsToStake[0]
+    );
+    await nftStaking.connect(user1).stake(tokenIdsToStake);
+    const staker = await nftStaking.stakers(user1.address);
+    const result = await nftStaking.isStaked(user1, tokenIdsToStake[0]);
+    expect(result).to.equal(false);
+  });
 });
